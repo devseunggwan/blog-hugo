@@ -1,6 +1,6 @@
 baseURL = 'https://devseunggwan.github.io/'
 languageCode = 'ko-kr'
-title = "devseunggwan"
+title = "데브승관"
 theme = "hugo-book"
 
 # Book configuration
@@ -39,11 +39,11 @@ enableGitInfo = true
 
   # (Optional, default favicon.png) Set the path to a favicon file.
   # If the favicon is /static/favicon.png then the path would be favicon.png
-  # BookFavicon = 'favicon.png'
+  BookFavicon = 'favicon.ico'
 
   # (Optional, default none) Set the path to a logo for the book.
   # If the logo is /static/logo.png then the path would be logo.png
-  # BookLogo = 'logo.png'
+  BookLogo = 'icon.png'
 
   # (Optional, default docs) Specify root page to render child pages as menu.
   # Page is resoled by .GetPage function: https://gohugo.io/functions/getpage/
