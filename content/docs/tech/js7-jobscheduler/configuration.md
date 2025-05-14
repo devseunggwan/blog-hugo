@@ -9,7 +9,7 @@ weight: 3
 ## 로그인 및 Controller 설정
 
 1. [http://localhost:4446/joc/#/login](http://localhost:4446/joc/#/login) 로 접속합니다.
-2. ID, PW&#x20;
+2. ID, PW
    1. ID: root
    2. PW: root
 3. 접속 후 비밀번호 변경 창이 나오고 변경 진행
@@ -18,25 +18,27 @@ weight: 3
    2. `docker ps` 를 실행하여 컨테이너 이름를 확인하고, URL에 기입합니다.
       1. ex) http://js7-controller-primary-1:4444
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt="" width="451"><figcaption></figcaption></figure>
+![config-1](images/configuration-1.png)
 
 5. 접속되며 메인 화면이 나옵니다.
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+![config-2](images/configuration-2.png)
+
+---
 
 ## Agent 설정
 
 1. 1시 방향에 있는 설정 아이콘 > `Manage Controllers/Agents` 를 클릭합니다.
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+![config-3](images/configuration-3.png)
 
 2. Controller 옆에 있는 `…` 을 클릭 후 `Add Standalone Agent` 를 클릭합니다.
 
-<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+![config-4](images/configuration-4.png)
 
 3. 팝업 창이 표시되며 각 항목들을 입력합니다.
 
-<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+![config-5](images/configuration-5.png)
 
 * `Agent ID`
   * 에이전트의 고유 식별자입니다. 고유성은 동일한 컨트롤러에 등록된 모든 에이전트에 적용됩니다. 이 식별자는 나중에 변경할 수 없습니다.
@@ -55,4 +57,4 @@ weight: 3
 
 ## Reference
 
-{% embed url="https://qiita.com/saitamanokusa/items/ffb8f05cbc8e75d435ce" %}
+* https://qiita.com/saitamanokusa/items/ffb8f05cbc8e75d435ce

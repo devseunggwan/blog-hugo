@@ -8,8 +8,10 @@ weight: 2
 
 ## 1. 공식 문서 참조 기준
 
-> 현재 Alpine 기본 이미지와 OpenJDK와 함께 제공되는 Linux 기반 [OCI](https://opencontainers.org/) 호환 컨테이너 이미지 에서 제공\
-> 2025.01.03 기준 2.5.0 버전으로 공식 문서에 적혀있어서 참조하였습니다.
+{{% hint info %}}
+현재 Alpine 기본 이미지와 OpenJDK와 함께 제공되는 Linux 기반 [OCI](https://opencontainers.org/) 호환 컨테이너 이미지 에서 제공 \
+2025.01.03 기준 2.5.0 버전으로 공식 문서에 적혀있어서 참조하였습니다.
+{{% /hint %}}
 
 ### 1-1. dotenv 설정
 
@@ -21,23 +23,25 @@ JS7GROUPID=0
 JS7VERSION=2-5-0
 ```
 
-### 1-2. [Agent](https://kb.sos-berlin.com/display/JS7/JS7+-+Agent+Installation+using+Docker+Compose?src=contextnavpagetreemode)
+### 1-2. Agent
 
 1. docker-compose.yml 을 다운로드 받습니다.
 2. agent의 Volume이 마운트 되는 폴더를 생성합니다.
    1. `mkdir js7-agent-primary`
 3. docker-compose를 실행합니다.
    1. dotenv를 적용해야 합니다.
-   2. ```bash
-      docker compose --env-file ./.env -f docker-compose.yml up -d
-      ```
+
+```bash
+docker compose --env-file ./.env -f docker-compose.yml up -d
+```
 
 <details>
 
 <summary><a href="https://kb.sos-berlin.com/download/attachments/80970104/docker-compose.yml?version=2&#x26;modificationDate=1654531801000&#x26;api=v2">docker-compose.yml</a></summary>
 
-<pre class="language-yaml"><code class="lang-yaml"><strong>
-</strong>version: '3'
+
+```yaml
+version: '3'
  
 services:
   js7-agent-primary:
@@ -63,22 +67,24 @@ volumes:
       type: none
       device: ${PWD}/js7-agent-primary
       o: bind
-</code></pre>
-
-
+```
 
 </details>
 
-### 1-3. [Controller](https://kb.sos-berlin.com/display/JS7/JS7+-+Controller+Installation+using+Docker+Compose?src=contextnavpagetreemode)
+### 1-3. Controller
 
 1. docker-compose.yml 을 다운로드 받습니다.
 2. controller의 Volume이 마운트 되는 폴더를 생성합니다.
-   1. `mkdir js7-controller-primary`
+
+```
+mkdir js7-controller-primary
+```
+
 3. docker-compose를 실행합니다.
-   1. dotenv를 적용해야 합니다.
-   2. ```bash
-      docker compose --env-file ./.env -f docker-compose.yml up -d 
-      ```
+
+```bash
+docker compose --env-file ./.env -f docker-compose.yml up -d 
+```
 
 <details>
 
@@ -114,40 +120,46 @@ volumes:
       o: bind
 ```
 
-
-
 </details>
 
-### 1-4. [JOC Cockpit ](https://kb.sos-berlin.com/display/JS7/JS7+-+JOC+Cockpit+Installation+using+Docker+Compose?src=contextnavpagetreemode)
+### 1-4. JOC Cockpit
 
 > MySQL, PostgreSQL 두가지 종류의 DB를 지원합니다. \
 > (이 중 MySQL을 사용한 설치 예시를 작성하였습니다.)
 
 1. docker-compose.yml 및 hibernate.cfg.xml 을 다운로드 받습니다.
 2. JOC Cockpit의 Volume이 마운트 되는 폴더를 생성합니다.
-   1. ```bash
-      mkdir db_data
-      mkdir js7-joc-primary-config
-      mkdir js7-joc-primary-logs
-      ```
+
+ ```bash
+mkdir db_data
+mkdir js7-joc-primary-config
+mkdir js7-joc-primary-logs
+```
+
 3. docker-compose를 실행합니다.
-   1. dotenv를 적용해야 합니다.
-   2. ```bash
-      docker compose --env-file ./.env -f docker-compose.yml up -d
-      ```
+
+```bash
+docker compose --env-file ./.env -f docker-compose.yml up -d
+```
+
 4. hibernate.cfg.yml을 `js7-joc-primary-config` 폴더로 복사합니다.
-   1. ```bash
-      cp -f hibernate.cfg.xml js7-joc-primary-config/
-      ```
+
+```bash
+cp -f hibernate.cfg.xml js7-joc-primary-config/
+```
+
 5. JS7 Scheduler의 메타 정보를 저장하는 MySQL을 초기화합니다.
-   1. 초기화 진행
-      1. ```bash
-         docker-compose exec js7-joc-primary /bin/sh -c /opt/sos-berlin.com/js7/joc/install/joc_install_tables.sh
-         ```
-   2. 결과 확인
-      1. ```bash
-         tail js7-joc-primary-logs/install-result.log
-         ```
+   
+  * 초기화 진행
+
+  ```bash
+  docker-compose exec js7-joc-primary /bin/sh -c /opt/sos-berlin.com/js7/joc/install/joc_install_tablessh
+  ```
+   
+  * 결과 확인
+  ```bash
+  tail js7-joc-primary-logs/install-result.log
+  ```
 
 <details>
 
@@ -218,8 +230,6 @@ volumes:
       o: bind
 ```
 
-
-
 </details>
 
 <details>
@@ -245,15 +255,7 @@ volumes:
 </hibernate-configuration>
 ```
 
-
-
 </details>
-
-### Reference
-
-{% embed url="https://kb.sos-berlin.com/display/JS7/JS7+-+Installation+for+Containers?src=contextnavpagetreemode" %}
-
-{% embed url="https://qiita.com/saitamanokusa/items/ffb8f05cbc8e75d435ce" %}
 
 ## 2. 설치 개선
 
@@ -265,8 +267,11 @@ volumes:
 
 > Python은 UV 기반으로 구성할 예정이여서 설치 스크립트가 추가되어 있습니다. 사용하는 환경에 따라서 Dockerfile 구성을 변경하면 됩니다.
 
-<pre class="language-docker"><code class="lang-docker"><strong>FROM sosberlin/js7:agent-2-7-3
-</strong>
+<details>
+<summary>Dockerfile</summary>
+
+```dockerfile
+FROM sosberlin/js7:agent-2-7-3
 RUN apk add \
     wget \
     gcc \
@@ -285,36 +290,43 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 ENV PATH="$PATH:/root/.local/bin"
 
 RUN mkdir /var/sos-berlin.com/js7/agent/workspace
-</code></pre>
+```
 
-#### 파이썬 사용 시 주의사항
+</details>
 
-JS7 JobScheduler에서 사용한 컨테이너는 Alpine Linux 를 사용했습니다. Alpine Linux는 C 컴파일에 musl을 사용하기 때문에 Python의 특정 라이브러리를 설치 시 binary wheel 을 사용하지 못합니다. 그래서 설치시 C 코드를 컴파일해야 하는 문제점이 발생합니다. 해당 문제 때문에 설치 시간이 기존 보다 몇 (십)배는 느려지는 이슈가 있습니다. 그래서 라이브러리 사용에 제약 사항이 발생할 수 있습니다.
+{{% hint danger %}}
 
-현재 확인한 설치가 느린 라이브러리는 [Polars](https://github.com/pola-rs/polars), [oracledb ](https://oracle.github.io/python-oracledb)가 있습니다.&#x20;
+**파이썬 사용 시 주의사항**  
+* JS7 JobScheduler에서 사용한 컨테이너는 Alpine Linux 를 사용했습니다. Alpine Linux는 C 컴파일에 musl을 사용하기 때문에 Python의 특정 라이브러리를 설치 시 binary wheel 을 사용하지 못합니다. 
+* 그래서 설치시 C 코드를 컴파일해야 하는 문제점이 발생합니다. 해당 문제 때문에 설치 시간이 기존 보다 몇 (십)배는 느려지는 이슈가 있습니다. 그래서 라이브러리 사용에 제약 사항이 발생할 수 있습니다.
 
-{% embed url="https://eden-do.tistory.com/64" %}
+* https://eden-do.tistory.com/64
+* https://nx006.tistory.com/70
 
-{% embed url="https://nx006.tistory.com/70" %}
+{{% /hint %}}
 
 ### 2-2. docker-compose 통합 및 Agent 다중화
 
-문서에는 Agent, Controller, JOC를 각각의 docker-compose 파일로 분리했었습니다. 개발 환경을 구성할     떄 편리함을 위해서 한 개의 docker-compose 파일로 통합하였습니다.&#x20;
+문서에는 Agent, Controller, JOC를 각각의 docker-compose 파일로 분리했었습니다. 개발 환경을 구성할     떄 편리함을 위해서 한 개의 docker-compose 파일로 통합하였습니다.
 
-그리고 Enterprise 버전을 사용하지 않더라도 여러 개의 Standalone Agent를 Controller에 등록할 수 있습니다. 그래서 여러 개의 Agent를 사용하도록 deploy 옵션을 추가했습니다. Replicas 옵션은 dotenv에서 수정할 수 있도록 하였습니다.&#x20;
+그리고 Enterprise 버전을 사용하지 않더라도 여러 개의 Standalone Agent를 Controller에 등록할 수 있습니다. 그래서 여러 개의 Agent를 사용하도록 deploy 옵션을 추가했습니다. Replicas 옵션은 dotenv에서 수정할 수 있도록 하였습니다.
 
 그리고 각 Agent가 실행할 코드를 공유할 수 있도록 docker volume를 추가하였습니다. Python 코드를 Git Repo에서 Pull 방식으로 배포 후 Agent 에서 사용할 수 있도록 하기 위해 해당 방법으로 구성 하였습니다.. Rolling이나 Blue/Green 등배포 전략을 사용하기에는 Agent 를 Controller에서 등록하는 방식때문에 배포 전략을 사용하기 어려운 점도 고려했습니다.
 
-#### dotenv
+<details>
+<summary>dotenv</summary>
 
-<pre class="language-sh"><code class="lang-sh"><strong>JS7USERID=1000
-</strong>JS7GROUPID=0
+```txt
+JS7USERID=1000
+JS7GROUPID=0
 JS7VERSION=2-7-3
-
 JS7_AGENT_REPLICAS=3
-</code></pre>
+```
 
-#### docker-compose.yml
+</details>
+
+<details>
+<summary>docker-compose.yml</summary>
 
 ```yaml
 version: '3'
@@ -431,11 +443,16 @@ networks:
   js7:
 ```
 
+</details>
+
+
+
+
 ### 2-3. JS7 JobScheduler 초기 개발 환경 구성 스크립트 작성
 
-일련의 작업 과정을 자동화하기 위해 스크립트를 작성하였습니다. docker-compose up 이후 20초 정도 기다렸다가 DB 초기화 작업을 진행합니다.&#x20;
+일련의 작업 과정을 자동화하기 위해 스크립트를 작성하였습니다. docker-compose up 이후 20초 정도 기다렸다가 DB 초기화 작업을 진행합니다.
 
-만약 DB 초기화 중 에러가 발생하였다면, 스크립트의 마지막 두 줄을 다시 실행하여야 합니다. 초기화가 완료되지 않는다면, JOC가 열리지 않습니다.&#x20;
+만약 DB 초기화 중 에러가 발생하였다면, 스크립트의 마지막 두 줄을 다시 실행하여야 합니다. 초기화가 완료되지 않는다면, JOC가 열리지 않습니다.
 
 ```sh
 mkdir js7-agent-workspace
@@ -454,3 +471,9 @@ docker-compose exec js7-joc-primary /bin/bash -c /opt/sos-berlin.com/js7/joc/ins
 
 docker-compose restart js7-joc-primary
 ```
+
+
+## Reference
+
+* https://kb.sos-berlin.com/display/JS7/JS7+-+Installation+for+Containers?src=contextnavpagetreemode
+* https://qiita.com/saitamanokusa/items/ffb8f05cbc8e75d435ce

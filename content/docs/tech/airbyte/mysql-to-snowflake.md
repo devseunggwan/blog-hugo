@@ -6,8 +6,7 @@ weight: 2
 
 # Airbyte를 사용하여 MySQL to Snowflake 연결 시 고려 사항
 
-![image](image.png)
-
+<figure><img src="images/mysql-to-snowflake.png" alt="이미지"><figcaption></figcaption></figure>
 
 ## 개요
 
