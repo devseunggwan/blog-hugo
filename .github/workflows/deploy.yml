@@ -5,6 +5,9 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    env:
+      HUGO_GOOGLEANALYTICS: ${{ secrets.GA4_ID }}
+      HUGO_ENVIRONMENT: production
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
